@@ -17,12 +17,25 @@
       </main>
       <aside id="highscores">
         <h2>Highscores</h2>
-        <ol>
+        <ol id="highscores-list">
           <li id="gold">blank</li>
           <li id="silver">blank</li>
           <li id="bronze">blank</li>
         </ol>
       </aside>
     </div>
+    <script>
+      const highscoreListEl = document.getElementById("highscore-list");
+      const highscores = JSON.parse(localStorage.getItem("highscores")) || [];
+      highscores.sort((a, b) => b.score - a.score);
+      highscores.slice(0, 3).forEach((entry, index) => {
+        const listItem = document.getElementById(
+          ["gold", "silver", "bronze"][index]
+        );
+        if (listItem) {
+          listItem.textContent = `${entry.initials}: ${entry.score}`;
+        }
+      });
+    </script>
   </body>
 </html>
