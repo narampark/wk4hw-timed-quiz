@@ -13,21 +13,28 @@
         <h1>Javascript Timed Quiz</h1>
       </header>
       <main>
+        <!-- button that starts the quiz, links to the second html file where the quiz is located -->
         <button id="start"><a href="quiz.html">Start</a></button>
       </main>
       <aside id="highscores">
         <h2>Highscores</h2>
         <ol id="highscores-list">
+          <!-- where the highscores will go -->
           <li id="gold">blank</li>
           <li id="silver">blank</li>
           <li id="bronze">blank</li>
         </ol>
       </aside>
     </div>
+    <!-- Javascript code done inside the HTML because it's a very short and simple code -->
     <script>
+      // highscore list element from the ordered list
       const highscoreListEl = document.getElementById("highscore-list");
+      // retrives scores from the local storage
       const highscores = JSON.parse(localStorage.getItem("highscores")) || [];
+      // sorting the score from the highest to lowest
       highscores.sort((a, b) => b.score - a.score);
+      // display the top 3 scores in the list element
       highscores.slice(0, 3).forEach((entry, index) => {
         const listItem = document.getElementById(
           ["gold", "silver", "bronze"][index]

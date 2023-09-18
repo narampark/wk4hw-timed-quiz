@@ -43,9 +43,11 @@
       margin: 20px auto 0;
       display: none;
   }
+  /* highlights the correct answer to the question in green */
   .correct{
       background: lightgreen;
   }
+  /* highlights the incorrect answers to the question in red */
   .incorrect{
       background: red;
   }
