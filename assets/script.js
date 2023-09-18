@@ -185,6 +185,12 @@ function selectAnswer(e) {
 
 function showScore() {
   resetState();
+  const playerInitials = prompt("Enter initials (2 characters):");
+  if (playerInitials && playerInitials.length === 2) {
+    const highscores = JSON.parse(localStorage.getItem("highscores")) || [];
+    highscores.push({ initials: playerInitials, score });
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+  }
   questionEl.innerHTML = `Score: ${score}/${questions.length}`;
   submitButtonEl.innerHTML = "Go Back";
   submitButtonEl.style.display = "block";
