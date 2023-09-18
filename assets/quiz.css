@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background: steelblue;
+  }
+  .container {
+      background: brown;
+      width: 90%;
+      max-width: 600px;
+      margin: 100px auto 0;
+      border-radius: 10px;
+      padding: 30px;
+  }
+  .container h1{
+      font-size: 30px;
+      color: black;
+      font-weight: bold;
+      margin-top: 0;
+  }
+  .quiz {
+      padding: 20px 0;
+  }
+  .quiz h2{
+      padding: 3px;
+      font-size: 18px;
+      margin: 10px 0;
+  }
+  .btn{
+      font-size: 16px;
+      width: 100%;
+      padding: 3px;
+      margin: 1px 0;
+      text-align: left;
+  }
+  #submit-button{
+      width: 20%;
+      padding: 10px;
+      margin: 20px auto 0;
+      display: none;
+  }
+  .correct{
+      background: lightgreen;
+  }
+  .incorrect{
+      background: red;
+  }
+  
