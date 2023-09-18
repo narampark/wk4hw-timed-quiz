@@ -1,5 +1,7 @@
+// array of questions and its corresponding answer choices
 const questions = [
   {
+    // correct property given to each answer with the correct answer given "true"
     question: "Inside which HTML element do we put the JavaScript?",
     answers: [
       { text: "&lt;js&gt;", correct: false },
@@ -94,45 +96,53 @@ const questions = [
     ],
   },
 ];
+// the HTML elements that will be changed throughout the quiz
 const questionEl = document.getElementById("question");
 const answerButtonsEl = document.getElementById("answer-buttons");
 const submitButtonEl = document.getElementById("submit-button");
 const timerEl = document.getElementById("timer");
 
+// variables to keep track of the quiz's state
 let currentQuestionIndex = 0;
 let score = 0;
 let timer;
 let timeRemaining = 60;
 
+// function to start the quiz
 function startQuiz() {
   currentQuestionIndex = 0;
   score = 0;
   submitButtonEl.innerHTML = "Submit Answer";
   showQuestion();
+  // start the timer when the quiz starts
   startTimer();
 }
 
+// function to start the timer
 function startTimer() {
   timer = setInterval(function () {
     if (timeRemaining <= 0) {
       clearInterval(timer);
       handleTimeUp();
     } else {
+      //gives the remaining time on the quiz page
       timerEl.textContent = `Time Remaining: ${timeRemaining} seconds`;
       timeRemaining--;
     }
   }, 1000);
 }
-
+// function to stop the timer
 function stopTimer() {
   clearInterval(timer);
 }
 
+// function to handle when time is up
 function handleTimeUp() {
   handleIncorrectAnswer();
   setTimeout(showScore, 1000);
 }
 
+// function to deduct 5 seconds from the timer everytime an incorrect answer to a question is given
 function handleIncorrectAnswer() {
   timeRemaining -= 5;
   if (timeRemaining < 0) {
@@ -141,6 +151,7 @@ function handleIncorrectAnswer() {
   timerEl.textContent = `Time Remaining: ${timeRemaining} seconds`;
 }
 
+// function to show the correct question and answer choices as the user goes through the quiz so that only 1 question and 1 set of corresponding choices comes up
 function showQuestion() {
   resetState();
   let currentQuestion = questions[currentQuestionIndex];
@@ -157,13 +168,14 @@ function showQuestion() {
     button.addEventListener("click", selectAnswer);
   });
 }
+// function to replace the previous question and answers
 function resetState() {
   submitButtonEl.style.display = "none";
   while (answerButtonsEl.firstChild) {
     answerButtonsEl.removeChild(answerButtonsEl.firstChild);
   }
 }
-
+// the e selects the element that triggered the event
 function selectAnswer(e) {
   const selectedButton = e.target;
   const isCorrect = selectedButton.dataset.correct === "true";
@@ -174,6 +186,7 @@ function selectAnswer(e) {
     selectedButton.classList.add("incorrect");
     handleIncorrectAnswer();
   }
+  // stops the user from being able to select other choices after they make their choice
   Array.from(answerButtonsEl.children).forEach((button) => {
     if (button.dataset.correct === "true") {
       button.classList.add("correct");
@@ -183,6 +196,7 @@ function selectAnswer(e) {
   submitButtonEl.style.display = "block";
 }
 
+// function to tally up the final score and give the prompt to the user to punch in their initials for the highscore list
 function showScore() {
   resetState();
   const playerInitials = prompt("Enter initials (2 characters):");
@@ -192,6 +206,7 @@ function showScore() {
     localStorage.setItem("highscores", JSON.stringify(highscores));
   }
   questionEl.innerHTML = `Score: ${score}/${questions.length}`;
+  // button to allow user to go back to the index.html when the quiz ends
   submitButtonEl.innerHTML = "Go Back";
   submitButtonEl.style.display = "block";
   submitButtonEl.addEventListener("click", () => {
@@ -201,13 +216,16 @@ function showScore() {
 
 function handleSubmitButton() {
   currentQuestionIndex++;
+  // if not at the end of the quiz, show the next question
   if (currentQuestionIndex < questions.length) {
     showQuestion();
   } else {
+    // if at the end, give the score and prompt user name input
     showScore();
   }
 }
 
+// add event listener to the submit button
 submitButtonEl.addEventListener("click", () => {
   if (currentQuestionIndex < questions.length) {
     handleSubmitButton();
@@ -216,4 +234,5 @@ submitButtonEl.addEventListener("click", () => {
   }
 });
 
+// starts the quiz
 startQuiz();
